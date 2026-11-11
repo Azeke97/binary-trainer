@@ -1,58 +1,60 @@
-# Двоичный тренажёр
+# Binary Trainer
 
-Тренажёр двоичной системы счисления в браузере. Работает без сборки и зависимостей: чистые HTML, CSS и JS.
+A browser-based trainer for the binary number system. No build step and no dependencies: plain HTML, CSS and JS.
 
-## Режимы
+Live demo: https://azeke97.github.io/binary-trainer/ (available once GitHub Pages is enabled).
 
-- **Квиз** — 20 раундов по 5 вопросов. Вопросы генерируются случайно и идут вперемешку:
-  - двоичное → десятичное;
-  - десятичное → двоичное;
-  - сложение двоичных чисел;
-  - вес разряда;
-  - наибольшее число для N бит.
+## Modes
 
-  Сложность растёт: раунды 1–4 — 4 бита, 5–8 — 5 бит … 17–20 — 8 бит.
-  Неправильные варианты взяты из типичных ошибок: один перевёрнутый бит, обратный порядок битов, ±1, OR/XOR вместо сложения.
-  У каждого вопроса есть подсказка и разбор. Прогресс и лучший результат сохраняются в `localStorage`.
-  Клавиши: `1`–`4` — выбрать ответ, `Enter` — дальше.
-- **Карточки** — бесконечный поток случайных карточек. Нажмите на карточку, чтобы увидеть ответ и разбор.
-- **Биты** — переключатель разрядов на 4 или 8 бит, который показывает двоичное и десятичное значение и раскладку по степеням двойки. Режим «Задание» просит собрать заданное число.
+- **Quiz** — 20 rounds of 5 questions. Questions are generated randomly and come in mixed order:
+  - binary → decimal;
+  - decimal → binary;
+  - binary addition;
+  - place value of a bit;
+  - largest number that fits in N bits.
 
-## Языки
+  Difficulty grows as you go: rounds 1–4 use 4 bits, 5–8 use 5 bits … 17–20 use 8 bits.
+  Wrong options are based on common mistakes: a single flipped bit, reversed bit order, ±1, OR/XOR instead of addition.
+  Every question has a hint and a worked explanation. Progress and the best score are saved in `localStorage`.
+  Keyboard: `1`–`4` pick an answer, `Enter` goes to the next question.
+- **Flashcards** — an endless stream of random cards. Click a card to reveal the answer and the explanation.
+- **Bits** — a 4- or 8-bit toggler that shows the binary and decimal value and the breakdown into powers of two. The “Challenge” mode asks you to build a given number.
 
-Интерфейс есть на русском и английском, переключатель RU / EN находится в шапке. Выбор сохраняется. При первом запуске язык берётся из настроек браузера. Если язык сменить посреди раунда, текущие вопросы и ответы сохранятся, изменится только текст.
+## Languages
 
-Все тексты лежат в `i18n.js`. Чтобы добавить язык, скопируйте блок `en`, переведите строки и добавьте код языка в `LANGS` и кнопку в `#lang-switch`.
+The interface is available in Russian and English; the RU / EN switch is in the header. Your choice is saved. On the first visit the language is taken from the browser settings. If you switch the language mid-round, the current questions and answers stay the same — only the text changes.
 
-## Запуск
+All texts live in `i18n.js`. To add a language, copy the `en` block, translate the strings, then add the language code to `LANGS` and a button to `#lang-switch`.
 
-Откройте `index.html` в браузере или запустите любой статический сервер:
+## Running locally
+
+Open `index.html` in a browser or start any static server:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-## Публикация на GitHub Pages
+## Publishing on GitHub Pages
 
-1. Запушьте репозиторий на GitHub.
-2. Откройте Settings → Pages → Source: `Deploy from a branch`, ветка `main`, папка `/ (root)`.
-3. Через минуту сайт будет доступен по адресу `https://<username>.github.io/<repo>/`.
+1. Push the repository to GitHub.
+2. Open Settings → Pages → Source: `Deploy from a branch`, branch `main`, folder `/ (root)`.
+3. In about a minute the site will be available at `https://<username>.github.io/<repo>/`.
 
-## Структура
+## Project structure
 
-| Файл | Что внутри |
+| File | Contents |
 | --- | --- |
-| `index.html` | разметка трёх вкладок |
-| `style.css` | стили, тёмная и светлая тема (по системной настройке) |
-| `i18n.js` | словари RU / EN и переключение языка |
-| `questions.js` | генераторы вопросов и подбор неправильных вариантов |
-| `app.js` | логика квиза, карточек и переключателя битов |
+| `index.html` | markup for the three tabs |
+| `style.css` | styles, dark and light theme (follows the system setting) |
+| `i18n.js` | RU / EN dictionaries and language switching |
+| `questions.js` | question generators and wrong-option selection |
+| `app.js` | logic for the quiz, flashcards and bit toggler |
 
-Чтобы добавить новый тип вопроса:
-1. Напишите генератор в `questions.js`. Он должен возвращать `{ type, params, value, answer, options, explain }`.
-2. Добавьте генератор в `buildRound`.
-3. Добавьте тексты `q.<type>.kind`, `prompt` и `hint` в оба языка в `i18n.js`.
+To add a new question type:
+1. Write a generator in `questions.js`. It must return `{ type, params, value, answer, options, explain }`.
+2. Add the generator to `buildRound`.
+3. Add the `q.<type>.kind`, `prompt` and `hint` texts for both languages in `i18n.js`.
 
-## Лицензия
+## License
 
 MIT
