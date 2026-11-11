@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Тренажёр двоичной системы счисления: квиз, карточки и переключатель битов">
+  <title>Двоичный тренажёр</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1 class="app__title" data-i18n="app.title">Двоичный тренажёр</h1>
+      <div class="app__controls">
+        <nav class="tabs" role="tablist" data-i18n-aria="app.modes" aria-label="Режимы">
+          <button class="tab is-active" type="button" role="tab" data-tab="quiz" aria-selected="true" data-i18n="tab.quiz">Квиз</button>
+          <button class="tab" type="button" role="tab" data-tab="cards" aria-selected="false" data-i18n="tab.cards">Карточки</button>
+          <button class="tab" type="button" role="tab" data-tab="bits" aria-selected="false" data-i18n="tab.bits">Биты</button>
+        </nav>
+        <div class="segmented" id="lang-switch" role="group" data-i18n-aria="app.language" aria-label="Язык">
+          <button class="segmented__item" type="button" data-lang="ru" lang="ru">RU</button>
+          <button class="segmented__item" type="button" data-lang="en" lang="en">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Квиз: 20 раундов по 5 вопросов, сложность растёт -->
+    <section class="panel" id="tab-quiz" role="tabpanel">
+      <div class="meta">
+        <span id="quiz-round"></span>
+        <span class="meta__right">
+          <span id="quiz-score"></span>
+          <button class="link-btn" type="button" id="quiz-reset" data-i18n="quiz.reset">Сбросить прогресс</button>
+        </span>
+      </div>
+      <div id="quiz-body"></div>
+      <footer class="panel__footer" id="quiz-footer">
+        <div class="dots" id="quiz-dots"></div>
+        <button class="btn btn--primary" type="button" id="quiz-next" disabled>Дальше</button>
+      </footer>
+    </section>
+
+    <!-- Карточки: бесконечный случайный поток -->
+    <section class="panel" id="tab-cards" role="tabpanel" hidden>
+      <div class="meta">
+        <span data-i18n="cards.flipHint">Нажмите на карточку, чтобы перевернуть</span>
+        <span id="cards-stats"></span>
+      </div>
+      <button class="flashcard" type="button" id="card">
+        <span class="flashcard__face flashcard__front" id="card-front"></span>
+        <span class="flashcard__face flashcard__back" id="card-back"></span>
+      </button>
+      <footer class="panel__footer panel__footer--end">
+        <button class="btn" type="button" id="card-again" data-i18n="cards.again">Ещё раз</button>
+        <button class="btn btn--primary" type="button" id="card-known" data-i18n="cards.known">Знаю</button>
+      </footer>
+    </section>
+
+    <!-- Биты: переключатель разрядов -->
+    <section class="panel" id="tab-bits" role="tabpanel" hidden>
+      <div class="meta">
+        <div class="segmented" id="bits-size" role="group" data-i18n-aria="board.size" aria-label="Разрядность">
+          <button class="segmented__item" type="button" data-bits="4">4 бита</button>
+          <button class="segmented__item is-active" type="button" data-bits="8">8 бит</button>
+        </div>
+        <span id="bits-task"></span>
+      </div>
+
+      <div class="board" id="board"></div>
+
+      <div class="readouts">
+        <div class="readout">
+          <span class="readout__label" data-i18n="board.binary">Двоичное</span>
+          <span class="readout__value mono" id="out-bin"></span>
+        </div>
+        <div class="readout">
+          <span class="readout__label" data-i18n="board.decimal">Десятичное</span>
+          <span class="readout__value mono" id="out-dec"></span>
+        </div>
+        <div class="readout">
+          <span class="readout__label" data-i18n="board.breakdown">Как сложилось</span>
+          <span class="readout__value readout__value--small mono" id="out-sum"></span>
+        </div>
+      </div>
+
+      <p class="feedback" id="bits-feedback" hidden></p>
+
+      <div class="actions">
+        <button class="btn" type="button" id="bits-clear" data-i18n="board.clear">Сбросить</button>
+        <button class="btn" type="button" id="bits-random" data-i18n="board.random">Случайное</button>
+        <button class="btn btn--primary" type="button" id="bits-target" data-i18n="board.target">Задание: собери число</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="i18n.js"></script>
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
